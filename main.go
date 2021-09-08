@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/gocolly/colly"
 	"log"
 	"strings"
+
+	"github.com/gocolly/colly"
 )
 
 func main() {
 	c := colly.NewCollector()
 
 	c.OnHTML(`h3[class="lister-item-header"]`, func(element *colly.HTMLElement) {
-		fmt.Println(strings.TrimSpace(element.Text))
+		fmt.Println(strings.TrimSpace(element.DOM.Children().Text()))
 	})
 
 	c.OnRequest(func(request *colly.Request) {
